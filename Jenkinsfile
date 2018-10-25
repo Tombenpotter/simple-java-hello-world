@@ -53,14 +53,23 @@ spec:
     }
 
     stage('Docker Build') {
+      when {
+          anyOf {
+            branch 'master';
+            branch 'develop'
+          }
+        }
       steps {
-        container('docker') {
+        container('docker') {
           sh 'docker build -t my-app:$BUILD_NUMBER .'
         }
       }
     }
 
     stage('Docker Launch') {
+      when {
+        branch 'master';
+      }
       steps {
         container('docker') {
           sh 'docker run my-app:$BUILD_NUMBER'
