@@ -60,7 +60,7 @@ spec:
           }
         }
       steps {
-        container('docker') {
+        container('docker') {
           sh 'docker build -t my-app:$BUILD_NUMBER .'
         }
       }
