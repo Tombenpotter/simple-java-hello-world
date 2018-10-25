@@ -52,7 +52,7 @@ spec:
       }
     }
 
-    stage('Docker Build') {
+    stage('Docker Build') {
       steps {
         container('docker') {
           sh 'docker build -t my-app:$BUILD_NUMBER .'
