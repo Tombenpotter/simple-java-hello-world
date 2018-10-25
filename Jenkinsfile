@@ -36,7 +36,6 @@ spec:
 
 // Configuration à modifier
   stages {
-
     stage('Build') {
       steps {
         container('maven') {
@@ -51,6 +50,28 @@ spec:
           sh 'mvn test'
         }
       }
+    }
+
+    stage('Docker_Build') {
+      steps {
+        container('docker') {
+          sh 'docker build -t my-app:$BUILD_NUMBER .'
+        }
+      }
+    }
+
+    stage('Docker_Launch') {
+      steps {
+        container('docker') {
+          sh 'docker run my-app:$BUILD_NUMBER'
+        }
+      }
+    }
+  }
+
+  post {
+    always {
+      junit 'target/surefire-reports/*.xml'
     }
   }
 }
